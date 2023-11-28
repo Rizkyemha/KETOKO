@@ -1,11 +1,29 @@
 import HomePage from "./views/HomePage"
 import './style.css'
+import { useEffect, useMemo, useState } from "react"
+import api from "./api"
+import { ProductsContext } from "./context"
 
 function App() {
 
+  const [products, setProducts] = useState([])
+
+  async function getProducts() {
+    const response = await api.get_products()
+    return response
+  }
+
+  useEffect(() => {
+    getProducts().then(setProducts)
+  }, [])
+
+  const productsContextValue = useMemo(() => products, [products])
+
   return (
     <>
-      <HomePage />
+      <ProductsContext.Provider value={productsContextValue}>
+        <HomePage />
+      </ProductsContext.Provider>
     </>
   )
 }
