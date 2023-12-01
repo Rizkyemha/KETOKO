@@ -20,20 +20,33 @@
 }
 */
 
+import star from "../assets/star.svg"
+
 export default function CardProduct({product}) {
+
+    function potongan(harga, diskon) {
+        const pot = Math.floor(harga * diskon / 100)
+        return pot
+    }
+
     return (
         <>
             <div className="card_product_container">
-                <img src={product.thumbnail} className="card_product_image"/>
+                <img 
+                src={product.thumbnail} 
+                className="card_product_image" 
+                alt={product.title}
+                />
                 <div className="card_product_body">
                     <p className="card_product_title">{product.title}</p>
-                    <p className="card_product_price">$. {product.price}</p>
+                    <p className="card_product_price">$. {product.price - potongan(product.price, product.discountPercentage)}</p>
                     <div className="card_product_diskon">
-                        <p>$. {product.price}</p>
-                        <p>{product.discountPercentage}%</p>
+                        <p><s style={{color: '#dddddd'}}>$. {product.price}</s></p>
+                        <p style={{color: 'red'}}>{product.discountPercentage}%</p>
                     </div>
                     <div className="card_product_review">
-                        <p>bintang : {product.rating}</p>
+                        <img src={star} />
+                        <p> {product.rating}</p>
                         <p>stok {product.stock}</p>
                     </div>
                 </div>

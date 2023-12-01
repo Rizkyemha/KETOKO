@@ -1,8 +1,8 @@
-import HomePage from "./views/HomePage"
 import './style.css'
 import { useEffect, useMemo, useState } from "react"
 import api from "./api"
 import { ProductsContext } from "./context"
+import HomePage from "./views/HomePage"
 
 function App() {
 
