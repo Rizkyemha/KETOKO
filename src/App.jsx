@@ -1,10 +1,29 @@
+import './style.css'
+import { useEffect, useMemo, useState } from "react"
+import api from "./api"
+import { ProductsContext } from "./context"
+import HomePage from "./views/HomePage"
+
 function App() {
+
+  const [products, setProducts] = useState([])
+
+  async function getProducts() {
+    const response = await api.get_products()
+    return response
+  }
+
+  useEffect(() => {
+    getProducts().then(setProducts)
+  }, [])
+
+  const productsContextValue = useMemo(() => products, [products])
 
   return (
     <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ProductsContext.Provider value={productsContextValue}>
+        <HomePage />
+      </ProductsContext.Provider>
     </>
   )
 }
