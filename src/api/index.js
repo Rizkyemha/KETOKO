@@ -25,9 +25,22 @@ const api = (() => {
         }
     }
 
+    async function get_search_result( title ) {
+        try {
+            const response = await fetch(`${config.BASE_URL_PRODUCTS}/search?q=${title}`);
+            const responseJson = await response.json()
+            const { products } = responseJson
+            return products
+        } catch (error) {
+            console.log(error.message)
+            return []
+        }
+    }
+
     return {
         get_products,
-        get_categories
+        get_categories,
+        get_search_result
     }
 })()
 
